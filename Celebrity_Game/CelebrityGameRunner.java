@@ -1,4 +1,5 @@
 package Celebrity_Game;
+
 import java.util.Scanner;
 
 public class CelebrityGameRunner {
