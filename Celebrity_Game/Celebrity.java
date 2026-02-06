@@ -17,27 +17,27 @@ public class Celebrity {
         myRevealedYet = false;
     }
     
-    public String getClue(){
+    public String getClue() {
         return myHint;
     }
 
-    public String getName(){
+    public String getName() {
         return myName;
     }
 
-    public String toString(){
+    public String toString() {
         return "Name: " + myName + "\nHint: " + myHint;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         myName = name;
     }
 
-    public void setHint(String hint){
+    public void setHint(String hint) {
         myHint = hint; 
     }
 
-    public void setMyRevealedYet(boolean revealedYet){
+    public void setMyRevealedYet(boolean revealedYet) {
         myRevealedYet = revealedYet;
     }
 

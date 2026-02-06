@@ -23,5 +23,6 @@ public class CelebrityGameRunner {
         Game game = new Game();
         game.playGame(player1, player2, rounds);
         game.endGame();
+        scanner.close();
     }
 }
