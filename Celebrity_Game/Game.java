@@ -17,20 +17,33 @@ public class Game {
     private Celebrity KateHudson;
     private Celebrity ChloeZhao;
     private Celebrity JacobElordi;
+    private Celebrity [] celebrities = new Celebrity[6];
+    private boolean teams;
 
-
-
-    public Game() {
+    public Game(boolean custom, Celebrity [] list, boolean twoTeams) {
         this.roundNumber = 0;
         this.winner = null;
         this.celebritiesRevealed = 0;
-
+        teams = twoTeams;
         RyanCoogler = new Celebrity("Ryan Coogler", "Who directed Sinners?");
         BenicioDelToro = new Celebrity("BenicioDelToro", "Who is a supporting actor in One Battle After Another?");
         TimotheeChalame = new Celebrity("Timothee Chalame", "Who is the leading actor in Marty Supreme?");
         KateHudson = new Celebrity("Kate Hudson", "Who is the leading actress in Song Sung Blue?");
         ChloeZhao = new Celebrity("Chloe Zhao", "Who is the director of Hamnet?");
         JacobElordi = new Celebrity("Jacob Elordi", "Who is the supporting actor in Frankenstein?");
+
+        if(custom == true){
+            for(int i = 0; i<=5; i++){
+                celebrities[i] = list[i];
+            }
+        } else {
+            celebrities[0] = RyanCoogler;
+            celebrities[1] = BenicioDelToro;
+            celebrities[2] = TimotheeChalame;
+            celebrities[3] = KateHudson;
+            celebrities[4] = ChloeZhao;
+            celebrities[5] = JacobElordi;
+        }
     }
 
     public void playGame(Player player1, Player player2, int maxRounds) {
@@ -78,6 +91,10 @@ public class Game {
     public void resetRoundData() {
         this.currentCelebrity = null;
         this.celebritiesRevealed = 0;
+
+        for (int i = 0; i < celebrities.length; i++){
+            celebrities[i].setMyRevealedYet(false);
+        }
     }
 
     public void playRound() {
@@ -91,7 +108,6 @@ public class Game {
             System.out.println(currentPlayer.getName() + " revealed a celebrity!");
 
             // choosing a random unrevealed celebrity
-            Celebrity[] celebrities = {RyanCoogler, BenicioDelToro, TimotheeChalame, KateHudson, ChloeZhao, JacobElordi};
             Celebrity chosenCelebrity = celebrities[(int)(Math.random() * celebrities.length)];
             while (chosenCelebrity.myRevealedYet) {
                 chosenCelebrity = celebrities[(int)(Math.random() * celebrities.length)];
@@ -99,9 +115,10 @@ public class Game {
             this.currentCelebrity = chosenCelebrity;
             chosenCelebrity.setMyRevealedYet(true);
             celebritiesRevealed++;
-
-            System.out.println("Here is the celebrity. Don't reveal this to your team.");
-            System.out.println("Celebrity: " + currentCelebrity.getName());
+            if(teams == true) {
+                System.out.println("Here is the celebrity. Don't reveal this to your team.");
+                System.out.println("Celebrity: " + currentCelebrity.getName());
+            }
             System.out.println("Do you need a hint? (y/n)"); 
             Scanner scanner = new Scanner(System.in);
             String hintResponse = scanner.nextLine();
@@ -116,10 +133,10 @@ public class Game {
             System.out.println(currentPlayer.getName() + ", please enter your guess for the celebrity's name:");
             String playerGuess = scanner.nextLine();
             if (playerGuess.equalsIgnoreCase(currentCelebrity.getName())) {
-                System.out.println("Correct! " + currentPlayer.getName() + " earns a point.");
+                System.out.println("Correct! " + currentPlayer.getName() + " earns a point. \n");
                 currentPlayer.incrementScore();
             } else {
-                System.out.println("Incorrect. The correct answer was: " + currentCelebrity.getName());
+                System.out.println("Incorrect. The correct answer was: " + currentCelebrity.getName() + "\n");
             }
 
             // Switch turns
